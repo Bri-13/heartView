@@ -4,7 +4,7 @@ Team Member Names: Amanda and Brianna Huynh
 Instructions to compile/execute code:
 After downloading the zip file, open two terminals. 
 
-In the first terminal, download the heart_server.py file onto our RPi and ssh into it. On your RPi, run the following commands to install the necessary libraries:
+In the first terminal, download the heart_server.py file onto your RPi and ssh into it. On your RPi, run the following commands to install the necessary libraries:
 * sudo apt update
 * sudo apt install python3-pip -y
 * pip3 install flask numpy
@@ -12,13 +12,13 @@ In the first terminal, download the heart_server.py file onto our RPi and ssh in
 Finally, run the code with the command: python3 heart_server.py.
 
 
-In the second terminal, change the directory to heartView. Then, enter the following commands: 
+In the second terminal, change the directory to heartView1. Then, enter the following commands: 
 * npm install
 * npm run dev
 
 Next, click on the website link that includes “localhost” and a port number.
 
 
-The external libraries we used are: Flask, and NumPy.
+The external libraries we used are: Flask and NumPy.
 
 Click [View the text file](prompt.txt) to be taken to prompt.txt which includes the prompts we used to help us complete our project.
