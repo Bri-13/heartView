@@ -17,4 +17,4 @@ Next, click on the website link that includes “localhost” and a port number.
 
 The external libraries we used are: react, flask, and numpy.
 
-Click here [View the text file](prompt.txt) to be taken to prompt.txt which includes the prompts we used to help us complete our project.
+Click [View the text file](prompt.txt) to be taken to prompt.txt which includes the prompts we used to help us complete our project.
