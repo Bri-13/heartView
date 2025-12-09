@@ -1,0 +1,33 @@
+ChatGPT Log:
+
+Prompt: 
+make the rpi process this: Differentiate signal to determine sharp peaks identify local maxes over a period of time Calculate time between detected peaks Determine heart rate: number of heart beats / period of time Irregular heartbeat detection: Compute variability Mark abnormal patterns when variation greater than threshold Identify: skipped beats premature beats
+
+here is my rpi code which receives the bpm:
+const express = require("express");
+const app = express();
+
+app.use(express.json());
+
+app.post("/api/bpm", (req, res) => {
+    const { bpm } = req.body;
+
+    if (!bpm) {
+        return res.status(400).json({ error: "Missing bpm" });
+    }
+
+    console.log("Received BPM:", bpm);
+    
+    res.json({ status: "ok", received_bpm: bpm });
+});
+
+app.listen(5000, "0.0.0.0", () => {
+    console.log("Server running on port 5000");
+});
+
+
+
+
+
+Prompt: 
+how would i implement an LED to light up for a few seconds when an irregularity is detected?
