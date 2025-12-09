@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Heart Rate Monitor</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background: #f5f5f5;
+        padding-top: 50px;
+    }
+
+    #heart {
+        font-size: 120px;
+        color: red;
+        cursor: pointer;
+        user-select: none;
+        transition: transform 0.1s ease;
+    }
+
+    #heart:active {
+        transform: scale(1.15);
+    }
+
+    #bpm-display {
+        font-size: 40px;
+        margin-top: 20px;
+    }
+
+    #status {
+        margin-top: 10px;
+        color: gray;
+    }
+</style>
+</head>
+<body>
+
+<h1>Heart Rate Monitor</h1>
+<p>Tap the heart in rhythm with your pulse to measure BPM</p>
+
+<div id="heart">❤️</div>
+<div id="bpm-display">BPM: --</div>
+<div id="status">Waiting for taps...</div>
+
+<script>
+let timestamps = [];
+const maxBeats = 5;
+
+// Raspberry Pi IP address
+const PI_URL = "http://172.20.10.2:5000/api/tap";
+
+document.getElementById("heart").addEventListener("click", () => {
+    const now = Date.now();
+    timestamps.push(now);
+
+    if (timestamps.length > maxBeats) {
+        timestamps.shift();
+    }
+
+    // --------------------------------------------------
+    // LOCAL BPM calculation (ChatGPT)
+    // --------------------------------------------------
+    if (timestamps.length >= 2) {
+        let intervals = [];
+        for (let i = 1; i < timestamps.length; i++) {
+            intervals.push(timestamps[i] - timestamps[i - 1]);
+        }
+
+        const avgInterval = intervals.reduce((a,b)=>a+b) / intervals.length;
+        const bpm = Math.round(60000 / avgInterval);
+
+        document.getElementById("bpm-display").textContent = "BPM: " + bpm;
+        document.getElementById("status").textContent = "Sending tap timestamp...";
+    }
+
+    fetch(PI_URL, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ timestamp: now })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        document.getElementById("status").textContent =
+            "Pi processing: " + 
+            (data.irregularities?.length ? " ⚠️ Irregular!" : " ✔️");
+    })
+    .catch(err => {
+        console.error(err);
+        document.getElementById("status").textContent = "Error sending to Pi";
+    });
+});
+</script>
+
+</body>
+</html>
