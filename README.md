@@ -8,13 +8,17 @@ In the first terminal, download the heart_server.py file onto our RPi and ssh in
 * sudo apt update
 * sudo apt install python3-pip -y
 * pip3 install flask numpy
+
 Finally, run the code with the command: python3 heart_server.py.
+
 
 In the second terminal, change the directory to heartView. Then, enter the following commands: 
 * npm install
 * npm run dev
+
 Next, click on the website link that includes “localhost” and a port number.
 
-The external libraries we used are: react, flask, and numpy.
+
+The external libraries we used are: Flask, and NumPy.
 
 Click [View the text file](prompt.txt) to be taken to prompt.txt which includes the prompts we used to help us complete our project.
